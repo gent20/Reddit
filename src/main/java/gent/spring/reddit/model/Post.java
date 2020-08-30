@@ -1,6 +1,5 @@
 package gent.spring.reddit.model;
 
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +8,6 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import java.time.Instant;
 
 import static javax.persistence.FetchType.LAZY;
@@ -25,18 +23,25 @@ public class Post {
     @GeneratedValue(strategy = IDENTITY)
     private Long postId;
 
-    @NotEmpty(message = "Post Name cannot be empty or Null")
+    @NotBlank(message = "Post Name cannot be empty or Null")
     private String postName;
+
     @Nullable
     private String url;
+
     @Nullable
     @Lob
     private String description;
+
     private Integer voteCount = 0;
+
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;
+
     private Instant createdDate;
+
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "id", referencedColumnName = "id")
     private Subreddit subreddit;
+}
