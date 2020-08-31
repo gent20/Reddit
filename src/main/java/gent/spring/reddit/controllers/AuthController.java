@@ -1,5 +1,7 @@
 package gent.spring.reddit.controllers;
 
+import gent.spring.reddit.dto.AuthenticationResponse;
+import gent.spring.reddit.dto.LoginRequest;
 import gent.spring.reddit.dto.RegisterRequest;
 import gent.spring.reddit.services.AuthService;
 import lombok.AllArgsConstructor;
@@ -22,9 +24,15 @@ public class AuthController {
                 OK);
     }
 
+    @PostMapping("/login")
+    public AuthenticationResponse login(@RequestBody LoginRequest loginRequest){
+        return authService.login(loginRequest);
+    }
+
     @GetMapping("accountVerification/{token}")
     public ResponseEntity<String> verifyAccount(@PathVariable String token){
         authService.verifyAccount(token);
         return new ResponseEntity<>("Account Activated Succesfully" , OK);
     }
+
 }
