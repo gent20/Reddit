@@ -33,6 +33,8 @@ public class PostService {
     private final AuthService authService;
     private final PostMapper postMapper;
 
+
+
     public void save(PostRequest postRequest) {
         Subreddit subreddit = subredditRepository.findByName(postRequest.getSubredditName())
                 .orElseThrow(() -> new SubredditNotFoundException(postRequest.getSubredditName()));
